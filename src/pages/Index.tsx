@@ -32,6 +32,7 @@ const products: Product[] = [
 
 const Index = () => {
   const [cart, setCart] = useState<{ [key: number]: number }>({});
+  const [showLoh, setShowLoh] = useState(false);
   const { toast } = useToast();
 
   const addToCart = (productId: number) => {
@@ -197,7 +198,7 @@ const Index = () => {
                       <p className="text-sm text-muted-foreground">Итого:</p>
                       <p className="text-3xl font-bold text-primary">{getTotalPrice()} FPI</p>
                     </div>
-                    <Button size="lg" className="ml-4">
+                    <Button size="lg" className="ml-4" onClick={() => setShowLoh(true)}>
                       <Icon name="Rocket" size={20} className="mr-2" />
                       Оформить
                     </Button>
@@ -216,6 +217,29 @@ const Index = () => {
           </div>
         </footer>
       </div>
+
+      {showLoh && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center animate-fade-in"
+          onClick={() => setShowLoh(false)}
+        >
+          <div className="relative max-w-2xl animate-scale-in">
+            <img 
+              src="https://cdn.poehali.dev/projects/9f0fd158-6a0e-48bd-aeae-3ef537bbf36c/files/cfabd90b-9444-499b-a04e-171f728bcc01.jpg"
+              alt="LOH"
+              className="w-full h-auto rounded-lg shadow-2xl"
+            />
+            <Button
+              variant="destructive"
+              size="lg"
+              className="absolute top-4 right-4"
+              onClick={() => setShowLoh(false)}
+            >
+              <Icon name="X" size={24} />
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
